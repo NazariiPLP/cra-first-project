@@ -1,6 +1,6 @@
 import React from "react";
 
-class Greeting extends React.Component {
+class Aloha extends React.Component {
     constructor(props) {
         super(props);
         
@@ -29,5 +29,5 @@ class Greeting extends React.Component {
     } 
 }
 
-export default Greeting;
+export default Aloha;
 
