@@ -47,7 +47,7 @@ class AlohaDashboard extends React.Component {
         const newArray = [...usersArray];
 
         newArray.sort((a, b) => a.firstName > b.firstName ? 1 : -1);
-
+        
         this.setState({
             usersArray: newArray
         });
@@ -64,3 +64,4 @@ class AlohaDashboard extends React.Component {
 }
 
 export default AlohaDashboard;
+
