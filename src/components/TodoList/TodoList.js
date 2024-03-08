@@ -1,22 +1,23 @@
 import React from "react";
+import TodoItem from "./TodoItem";
 
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            todoList : [
-                {id: 1, text: "go to party"},
-                {id: 2, text: "meet friends"},
-                {id: 3, text: "have a walk"},
-            ]            
+            todoList: [
+                {id: 1, text: 'go to party'},
+                {id: 2, text: 'meet friends'},
+                {id: 3, text: 'have a walk'}
+            ]
         }
     }
 
-    removeTask(taskIDtoremove) {
+    removeTask(taskIDtoRemove) {
         const { todoList } = this.state;
 
-        const filteredArray = todoList.filter(task => task.id !== taskIDtoremove);
+        const filteredArray = todoList.filter(task => task.id !== taskIDtoRemove);
 
         this.setState({
             todoList: filteredArray
@@ -25,22 +26,24 @@ class TodoList extends React.Component {
 
     renderLi() {
         const { todoList } = this.state;
-
-        return todoList.map((task) => <li key={task.id}>
-            {task.text}
-            <button onClick={() => {this.removeTask(task.id)}}>Delete</button>
-            </li>
-        )
+        
+        return todoList.map((task) => 
+        <TodoItem 
+            key={task.id} 
+            text={task.text} 
+            delCallback={() => this.removeTask(task.id)} 
+        />);
     }
 
     render() {
         return (
-        <React.Fragment>
-            <h1>Todo list</h1>
-            <ul>
-                {this.renderLi()}
-            </ul>
-        </React.Fragment>
+            <>
+                <h1>TODO LIST</h1>
+
+                <ul>
+                    {this.renderLi()}
+                </ul>
+            </>
         )
     }
 }
@@ -49,21 +52,22 @@ export default TodoList;
 
 /*
 
-Задача 1
+Задача 1 - DONE
 
-Створити компоненту ToDoList.
-Ця компонента має в стейті масив об'єктів, в якому будуть знаходитимь текст задачі та її id.
++ Створити компоненту TodoList.
++ Ця компонента має в стейті масив об'єктів, в якому будуть знаходитись текст задачі та її id.
 
-Це може вигглядати ось таким чином:
+Приблизно це може виглядати ось таким чином:
+
 [
-    {id: 1, text: "go to party"},
-    {id: 2, text: "meet friends"},
-    {id: 3, text: "have a walk"},
+    {id: 1, text: 'go to party'},
+    {id: 2, text: 'meet friends'},
+    {id: 3, text: 'have a walk'}
 ]
 
-Компонента рендерить список <li>, всередині якого один рядок з масиву
++ Компонента рендерить список <li>, всередині якого один рядок з масиву
 
-Приблизно це може виглядати ось таким чином: 
+Приблизно це може виглядати ось таким чином:
 
 <ul>
     <li>go to party</li>
@@ -71,9 +75,10 @@ export default TodoList;
     <li>have a walk</li>
 </ul>
 
-Задача 2 (***)
 
-В кожній li зробити кнопку, за натисненням на яку цей едемент списку має зникнути (реалізувати видалення завдання)
+Задача 2 (***) - DONE
+
++ В кожній li зробити кнопку, за натисненням на яку цей елемент списку має зникнути (реалізувати видалення завдання)
 (тобто оновити стейт таким чином, щоб в масиві з рядками або об'єктами не було того, який пов'язаний з кнопкою)
 
 */
