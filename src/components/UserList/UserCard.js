@@ -21,3 +21,7 @@ function UserCard(props) {
 }
 
 export default UserCard;
+
+/* Задача 2
+В компонеті UserList передбачити можливість 
+*/
