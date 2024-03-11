@@ -1,10 +1,10 @@
 import React from "react";
-import UserList from "./UserList/UserList";
+import SignInForm from "./SingInForm/SignInForm";
 
-class App extends React.Component {
-    render() {
-        return <UserList />
-    }
+function App() {
+    return (
+        <SignInForm />
+    )
 }
 
 export default App;
