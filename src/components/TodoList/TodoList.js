@@ -1,5 +1,6 @@
 import React from "react";
 import TodoItem from "./TodoItem";
+import TodoForm from "./TodoForm";
 
 class TodoList extends React.Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class TodoList extends React.Component {
             todoList: [
                 {id: 1, text: 'go to party'},
                 {id: 2, text: 'meet friends'},
-                {id: 3, text: 'have a walk'}
+                {id: 3, text: 'have a walk'},
             ]
         }
     }
@@ -22,6 +23,21 @@ class TodoList extends React.Component {
         this.setState({
             todoList: filteredArray
         });
+    }
+
+    formHandler = (text) => {
+        const { todoList } = this.state;
+
+        const newObj = {
+            id: todoList.length + 1, 
+            text
+        }
+        
+        const newArr = [...todoList, newObj];
+
+        this.setState({
+            todoList: newArr
+        })
     }
 
     renderLi() {
@@ -39,7 +55,9 @@ class TodoList extends React.Component {
         return (
             <>
                 <h1>TODO LIST</h1>
-
+                
+                <TodoForm sendData={this.formHandler} />
+                
                 <ul>
                     {this.renderLi()}
                 </ul>
@@ -51,34 +69,12 @@ class TodoList extends React.Component {
 export default TodoList;
 
 /*
+TodoList - компонента в якій відбувається управління списком задач і рендериться сам список задач
 
-Задача 1 - DONE
+Зробити компоненту TodoForm, яка буде представляти собою форму
+Там буде 1 інпут - текст таски
+І кнопка, яка буде додавати таску до списку у батьківській компоненті TodoList
 
-+ Створити компоненту TodoList.
-+ Ця компонента має в стейті масив об'єктів, в якому будуть знаходитись текст задачі та її id.
-
-Приблизно це може виглядати ось таким чином:
-
-[
-    {id: 1, text: 'go to party'},
-    {id: 2, text: 'meet friends'},
-    {id: 3, text: 'have a walk'}
-]
-
-+ Компонента рендерить список <li>, всередині якого один рядок з масиву
-
-Приблизно це може виглядати ось таким чином:
-
-<ul>
-    <li>go to party</li>
-    <li>meet friends</li>
-    <li>have a walk</li>
-</ul>
-
-
-Задача 2 (***) - DONE
-
-+ В кожній li зробити кнопку, за натисненням на яку цей елемент списку має зникнути (реалізувати видалення завдання)
-(тобто оновити стейт таким чином, щоб в масиві з рядками або об'єктами не було того, який пов'язаний з кнопкою)
-
+TodoList - батьківська компонента
+TodoForm - дочірня компонента
 */
