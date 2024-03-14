@@ -1,6 +1,7 @@
 // TodoForm - класова компонента
 
 import React, { Component } from 'react';
+import styles from './TodoFormStyle.module.css';
 
 class TodoForm extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class TodoForm extends Component {
         const { taskText } = this.state;
 
         return (
-            <form onSubmit={this.submitHandler}>
+            <form onSubmit={this.submitHandler} className={styles.container}>
                 <input type='text' value={taskText} name='taskText' onChange={this.changeHandler}/> {/* 3. Потрібно вказати, що value інпута контролюється стейтом */}
                 <button type='Submit'>Add task</button>
             </form>
