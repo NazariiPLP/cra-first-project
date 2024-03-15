@@ -1,11 +1,9 @@
 import React from "react";
-import UserList from "./UserList/UserList";
-import TodoList from "./TodoList/TodoList";
-import UserCard from "./UserList/UserCard";
+import List from "./List/List";
 
 function App() {
     return (
-        <UserList />
+        <List />
     )
 }
 
