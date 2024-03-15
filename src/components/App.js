@@ -1,13 +1,9 @@
 import React from "react";
-import FlexWrapper from "./FlexWrapper/FlexWrapper";
+import UserList from "./UserList/UserList";
 
 function App() {
     return (
-    <FlexWrapper flexDirection="row" justifyContent="center" alignItems="stretch">
-        <div>Item1</div>
-        <div>Item2</div>
-        <div>Item3</div>
-    </FlexWrapper>
+        <UserList />
     )
 }
 
