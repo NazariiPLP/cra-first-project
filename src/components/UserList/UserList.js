@@ -1,7 +1,7 @@
 import React from "react";
 import UserCard from "./UserCard";
 import { getUsers } from "../../api";
-import { HashLoader } from "react-spinners";
+import HashLoader from "react-spinners/HashLoader";
 
 class UserList extends React.Component {
     constructor(props) {
@@ -12,30 +12,21 @@ class UserList extends React.Component {
             filteredUsers: [],
             userCount: 100,
             isLoading: true,
-            isError: false
+            isError: false,
+            page: 1
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { page } = this.state;
+        if(prevState.page !== page) { // ЯКЩО У НАС ЗМІНИВСЯ НОМЕР СТОРІНКИ
+            this.loadPage(page);
         }
     }
 
     componentDidMount() {
-        const { userCount } = this.state;
-
-        getUsers(userCount).then(data => {
-            const { results } = data;
-
-            this.setState({
-                users: results
-            })
-        })
-        .catch((error) => {
-            this.setState({
-                isError: error
-            });
-        })
-        .finally(() => {
-            this.setState({
-                isLoading: false
-            });
-        });
+        const { page } = this.state;
+        this.loadPage(page);
     }
 
     renderUsers = () => {
@@ -93,10 +84,10 @@ class UserList extends React.Component {
         });
     }
 
-    handleLoadUsersClick = () => {
+    handleLoadUsersClick = (page) => {
         const { userCount } = this.state;
-
-        getUsers(userCount).then(data => {
+        
+        getUsers(userCount, page).then(data => {
             const { results } = data;
 
             const tempArray = this.state.users;
@@ -120,9 +111,44 @@ class UserList extends React.Component {
         });
     }
 
+    loadPage = (page) => {
+        const { userCount } = this.state;
+        
+        getUsers(userCount, page).then(data => {
+            const { results } = data;
+
+            this.setState({
+                users: results
+            })
+        })
+        .catch((error) => {
+            this.setState({
+                isError: error
+            });
+        })
+        .finally(() => {
+            this.setState({
+                isLoading: false
+            });
+        });
+    }
+
+    prevBtnHandler = () => {
+        if(this.state.page > 1) {
+            this.setState({
+                page: this.state.page - 1
+            });
+        }
+    }
+
+    nextBtnHandler = () => {
+        this.setState({
+            page: this.state.page + 1
+        });
+    }
+
     render() {
         const { users, isLoading, isError } = this.state;
-        console.dir(isError);
 
         return (
             <>
@@ -135,8 +161,11 @@ class UserList extends React.Component {
 
                 <button onClick={() => this.clickHandler()}>Add user</button>
 
-                {isLoading && <HashLoader color="#36d7b7" size={300} cssOverride={{display: 'block', margin: '0 auto'}} />}
-                {isError && <h2>{isError.massage}</h2>}
+                {isLoading && <HashLoader color="#36d7b7" size={300} cssOverride={{display: "block", margin: "0 auto"}} />}
+                {isError && <h2>{isError.message}</h2>}
+
+                <button onClick={this.prevBtnHandler}>Previous page</button>
+                <button onClick={this.nextBtnHandler}>Next page</button>
 
                 <section className="card-container">{users.length ? this.renderUsers() : null}</section>
             </>
