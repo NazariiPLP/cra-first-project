@@ -1,15 +1,19 @@
-import React from 'react';
+import React from "react";
 
-const Child = (props) => {
-    return (
-        <article>
-            {props.children}
-        </article>
-    );
-}
+const FlexWrapper = (props) => {
+  const { children, flexDirection, justifyContent, alignItems } = props;
 
-export default Child;
+  return (
+    <article
+      style={{ display: "flex", flexDirection, justifyContent, alignItems,
+      }}
+    >
+      {children}
+    </article>
+  );
+};
 
+export default FlexWrapper;
 
 /*
 

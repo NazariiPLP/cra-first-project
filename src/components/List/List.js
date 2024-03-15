@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Child from './Child';
+import FlexWrapper from './FlexWrapper';
 
 class List extends Component {
     render() {
         return (
-            <div>
+            <>
                 <Child>
-                    <h1>Header</h1>
-                    <p>Hello Child</p>
+                    <h1>Hello Child!</h1>
                 </Child>
-            </div>
+            </>
         );
     }
 }
