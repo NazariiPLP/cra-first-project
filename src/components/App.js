@@ -1,52 +1,44 @@
 import React from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
+import Counter from './Counter/CounterPage';
+import UserList from './UserList/UserList';
+import TodoList from './TodoList/TodoList';
+import AlohaDashboard from './AlohaDashboard/AlohaDashboard';
+import Home from "./Home/Home";
+import NotFound from "./NotFound/NotFound";
 
 function App() {
     return (
-        <>
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-            />
+        <BrowserRouter>
+            <nav>
+                <ul>
+                    <li><Link to='counter'>Go to Counter component</Link></li>
+                    <li><Link to='users'>Go to UserList component</Link></li>
+                    <li><Link to='todo'>Go to TodoList component</Link></li>
+                    <li><Link to='aloha'>Go to AlohaDashboard component</Link></li>
+                </ul>
+            </nav>
 
-            <button onClick={() => { window.location.reload() }}>Reload</button>
-
-            <button onClick={() => { window.location.assign('https://www.w3schools.com/sql/') }}>Assign</button>
-            <button onClick={() => { window.location.replace('https://developer.mozilla.org/ru/') }}>Replace</button>
-
-
-            <p>Lorem ipsum dolor amet.</p>
-            <button onClick={() => { 
-                window.navigator.clipboard.writeText('Lorem ipsum dolor amet.');
-                toast.success('🦄 Copied to clipboard');
-            }}
-            >Click to copy text</button>
-
-
-            <button onClick={() => {
-                window.navigator.clipboard.readText()
-                .then((text) => {
-                    console.log(text);
-                });
-            }}>Read text from buffer</button>
-
-
-            <button onClick={() => {
-                window.navigator.geolocation.getCurrentPosition((positionObject) => {
-                    console.log(positionObject);
-                });
-            }}>Get my current position</button>
-        </>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/counter" element={<Counter />} />
+                <Route path="/users" element={<UserList />} />
+                <Route path="/todo" element={<TodoList />} />
+                <Route path="/aloha" element={<AlohaDashboard />} />
+                <Route path="/*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
     )
 }
 
 export default App;
+
+
+/*
+
+1. SSR (server-side rendering) - додатки, які рендеряться на сервері
+2. CSR (CLIENT-SIDE RENDERING) - додатки, які рендеряться на клієнті
+
+
+*/
