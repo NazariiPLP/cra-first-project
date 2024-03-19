@@ -28,7 +28,7 @@ function App() {
                     );
                 }}
             </DataProvider>
-            
+
             <DataProvider
                 loadData={() => {
                     return fetch('./tv.json')
@@ -43,9 +43,9 @@ function App() {
                             {isLoading && <div>Loading...</div>}
                             {isError && <div>Error happaned: {isError.massage}!</div>}
             
-                            <ul>
+                            <ol>
                                 {data.map((data, index) => <li key={index}>Brand: {data.brand} --- Model: {data.model} --- Price: {data.price}</li>)}
-                            </ul>
+                            </ol>
                         </>
                     );
                 }}
@@ -59,25 +59,7 @@ export default App;
 
 
 /*
-                loadData={() => {
-                    return fetch('./phones.json')
-                    .then((response) => response.json())
-                }}
-                
-                renderData={(state) => {
-                    const { data, isLoading, isError } = state;
 
-                    return (
-                        <>
-                            {isLoading && <div>Loading...</div>}
-                            {isError && <div>Error happaned: {isError.massage}!</div>}
-            
-                            <ul>
-                                {data.map((data) => <li>Brand: {data.brand} --- Model: {data.model} --- Price: {data.price}</li>)}
-                            </ul>
-                        </>
-                    );
-                }}
-
-
+Відобразити поруч з компонентою телефонів компоненту телевізорів.
+При тому телевізори мають бути у нумерованому списку.
 */
