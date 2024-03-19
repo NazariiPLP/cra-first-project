@@ -1,0 +1,23 @@
+[
+    {
+        "brand": "Samsung",
+        "model": "S10",
+        "price": "100$"
+    },
+    {
+        "brand": "Nokia",
+        "model": "1110",
+        "price": "20$"
+    },
+    {
+        "brand": "Iphone 16",
+        "model": "1110",
+        "price": "2600$"
+    },
+    {
+        "brand": "Huawei",
+        "model": "Super-model",
+        "price": "4000$"
+    }
+    
+]
