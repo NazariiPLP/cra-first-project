@@ -3,14 +3,14 @@ import { UserContext } from '../../../../../../contexts/userContext';
 
 const InnerChild = (props) => {
     return (
-
         <UserContext.Consumer>
-            {({firstName, lastName, email, avatar}) => {
+            {({user: {firstName, lastName, email, avatar}, logOut}) => {
                 return (
                     <div style={{border: '3px solid black', padding: '25px'}}>
-                    I'm InnerChild
-                    <p>{firstName} {lastName} {email}</p>
-                </div>
+                        I'm InnerChild
+                        <button onClick={logOut}>Log out</button>
+                        <p>{firstName} {lastName} {email}</p>
+                    </div>
                 )
             }}
         </UserContext.Consumer>
