@@ -1,9 +1,9 @@
 import React from "react";
-import Tree from "./Tree/Tree";
-import { UserContext } from "../contexts/userContext";
+import TreeWithTheme from "./Tree/Tree";
+import { UserContext } from '../contexts/userContext';
 import { ThemeContext } from "../contexts/themeContext";
-import CONSTANS from "../constants";
-const { THEMES } = CONSTANS;
+import CONSTANTS from "../constants";
+const { THEMES } = CONSTANTS;
 
 class App extends React.Component {
     constructor(props) {
@@ -23,13 +23,13 @@ class App extends React.Component {
     logOut = () => {
         this.setState({
             user: {}
-        })
+        });
     }
 
-    setTheme = (theme) => {
+    setTheme = theme => {
         this.setState({
             theme
-        })
+        });
     }
     
     render() {
@@ -41,10 +41,10 @@ class App extends React.Component {
                 <UserContext.Provider value={{
                     user: this.state.user,
                     logOut: this.logOut
-                    }}>
-                        App
-                        <Tree />
-                    </UserContext.Provider>
+                }}>
+                    App
+                    <TreeWithTheme />
+                </UserContext.Provider>
             </ThemeContext.Provider>
         )
     }
