@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
-import * as yup from 'yup';
+import { LOGIN_SCHEME } from '../../schemas';
 
 const initialState = {
     email: '',
     password: ''
 }
 
-const LOGIN_SCHEME = yup.object ({
-    email: yup.string().required().email(),
-    password: yup.string().required().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)
-})
-
 class LoginForm extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            ...initialState
+            ...initialState,
+            isError: null
         }
     }
 
@@ -28,12 +24,22 @@ class LoginForm extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        console.log(LOGIN_SCHEME.isValidSync(this.state)); // Потенційно, тут можна робити запит на сервер
+        
+        try {
+            LOGIN_SCHEME.validateSync(this.state);
+                this.setState({
+                    isError: null
+                })
+        } catch(err) {
+            this.setState ({
+                isError: err
+            });
+        }
     }
 
 
     render() {
-        const { email, phoneNumber, password } = this.state;
+        const { email, password, isError } = this.state;
 
         return (
             <form onSubmit={this.submitHandler}>
@@ -52,6 +58,8 @@ class LoginForm extends Component {
                 onChange={this.changeHandler}
                 />
                 <button>Log in</button>
+
+                {isError && <p style={{color: 'red', fontSize: '20px'}}>{isError.message}</p>}
             </form>
         );
     }
