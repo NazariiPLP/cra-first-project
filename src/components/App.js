@@ -1,16 +1,21 @@
 import React from "react";
-import LoginForm from "./LoginForm/LoginForm";
-import SignUpForm from "./SignUpForm/SignUpForm";
+import NewCounter from "./NewCounter/NewCounter";
+import NewCounterFunction from './NewCounter/NewCounterFunction';
+
 
 class App extends React.Component {
     constructor(props) {
         super(props);
     
     }
+
+    rerender() {
+        this.forceUpdate();
+    }
     
     render() {
         return (
-        <SignUpForm/>
+        <NewCounterFunction rerender={() => this.rerender} />
         )
     }
 }
