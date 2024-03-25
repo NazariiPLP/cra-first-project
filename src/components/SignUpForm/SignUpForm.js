@@ -1,7 +1,7 @@
 import React from 'react';
 import { SIGN_UP_SCHEMA } from '../../schemas';
 
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const initialState = {
     firstName: '',
@@ -17,18 +17,26 @@ function SignUpForm(props) {
     }
 
     return (
-        <Formik initialValues={initialState} onSubmit={handleSubmitToFormik}>
-            {(formikProps) => {
-                return (
-                    <Form>
-                        <Field name='firstName' placeholder='Type your firstName' />
-                        <Field name='lastName' placeholder='Type your lastName' />
-                        <Field name='email' placeholder='Type your email' />
-                        <Field name='password' placeholder='Type your password' />
-                        <button type='submit'>Send</button>
-                    </Form>
-                )
-            }}
+        <Formik 
+            initialValues={initialState} 
+            onSubmit={handleSubmitToFormik}
+            validationSchema={SIGN_UP_SCHEMA}
+            >
+                {(formikProps) => {
+                    return (
+                        <Form style={{display: 'flex', flexDirection: 'column', width: '500px', margin: '0 auto'}}>
+                            <Field name='firstName' placeholder='Type your firstName' />
+                            <ErrorMessage name='firstName' component='p'/>
+                            <Field name='lastName' placeholder='Type your lastName' />
+                            <ErrorMessage name='lastName' component='p'/>
+                            <Field name='email' placeholder='Type your email' />
+                            <ErrorMessage name='email' component='p'/>
+                            <Field name='password' placeholder='Type your password' />
+                            <ErrorMessage name='password' component='p'/>
+                            <button type='submit'>Send</button>
+                        </Form>
+                    )
+                }}
         </Formik>
     );
 }
