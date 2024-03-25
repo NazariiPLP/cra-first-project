@@ -2,20 +2,16 @@ import React, { Component } from 'react';
 import * as yup from 'yup';
 
 const initialState = {
-    firstName: '',
-    lastName: '',
     email: '',
     password: ''
 }
 
-const SIGN_UP_SCHEMA = yup.object({
-    firstName: yup.string().required().min(1).max(50),
-    lastName: yup.string().required().min(1).max(50),
+const LOGIN_SCHEME = yup.object ({
     email: yup.string().required().email(),
     password: yup.string().required().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)
-});
+})
 
-class SignUpForm extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
         
@@ -32,69 +28,33 @@ class SignUpForm extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        console.log(SIGN_UP_SCHEMA.isValidSync(this.state)); // Потенційно, тут можна робити запит на сервер
+        console.log(LOGIN_SCHEME.isValidSync(this.state)); // Потенційно, тут можна робити запит на сервер
     }
-    
+
 
     render() {
-        const { email, password, firstName, lastName } = this.state;
+        const { email, phoneNumber, password } = this.state;
 
         return (
             <form onSubmit={this.submitHandler}>
-                <input 
-                    type='text' 
-                    value={firstName} 
-                    placeholder='Type your firstName' 
-                    name='firstName' 
-                    onChange={this.changeHandler} 
+                <input
+                type='text'
+                value={email}
+                placeholder='Type your email'
+                name='email'
+                onChange={this.changeHandler}
                 />
                 <input 
-                    type='text' 
-                    value={lastName} 
-                    placeholder='Type your lastName' 
-                    name='lastName' 
-                    onChange={this.changeHandler} 
+                type='text'
+                value={password}
+                placeholder='Type your password'
+                name='password'
+                onChange={this.changeHandler}
                 />
-                <input 
-                    type='text' 
-                    value={email} 
-                    placeholder='Type your email' 
-                    name='email' 
-                    onChange={this.changeHandler} 
-                />
-                <input 
-                    type='text' 
-                    value={password} 
-                    placeholder='Type your password'
-                    name='password'
-                    onChange={this.changeHandler}
-                />
-                <button>Login</button>
+                <button>Log in</button>
             </form>
         );
     }
 }
 
-export default SignUpForm;
-
-/*
-
-Валідація програмного забезпечення
-
-Коли ми перевіряємо, що розроблений продукт - те, що хотів наш клієнт.
-
-
-
-
-Верифікація програмного забезпечення
-
-Коли ми перевіряємо, а як саме реалізовані вимоги клієнта.
-
-*/
-
-/*
-
-Створити за аналогією компоненту входу.
-Провести валідацію з викорситанням yup
-
-*/
+export default LoginForm;
