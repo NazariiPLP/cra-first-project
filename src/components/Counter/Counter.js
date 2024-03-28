@@ -1,55 +1,49 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
+import {format, addSeconds} from 'date-fns';
 
-class Counter extends React.Component{
-    constructor(props) {
-        super(props);
+const Counter = () => {
+    const [time, setTime] = useState(new Date(0, 0, 0, 0, 0, 0, 0)); // 00:00:00
+    const [isRunning, setIsRunning] = useState(true);
+    const clearBtnRef = useRef(null);
 
-        this.state = {
-            count: 0
+    useEffect(() => { // componentDidMount
+        clearBtnRef.current.disabled = true;
+    }, []);
+
+    useEffect(() => { // componentDidMount
+        if(isRunning) {
+            const intevalId = setInterval(() => {
+                setTime(time => addSeconds(time, 1));
+            }, 1000);
+    
+            return () => { // componentWillUnmount
+                clearInterval(intevalId);
+            }
         }
+    }, [isRunning]);
 
-        this.intevalId = null;
+    const switchRunning = () => {
+        setIsRunning(!isRunning);
 
-        console.log('constructor');
+        if(isRunning === true) {
+            clearBtnRef.current.disabled = false;
+        } else {
+            clearBtnRef.current.disabled = true;
+        }
+    } 
+
+    const clearHandler = () => {
+        setTime(new Date(0, 0, 0, 0, 0, 0, 0));
+
     }
 
-    start() {
-        this.intevalId = setInterval(() => {
-            const { count } = this.state;
-
-            this.setState ({
-                count: count + 1
-            });
-        }, 1000);
-    }
-
-    componentDidMount() {
-        this.start();
-        console.log('componentDidMount');
-    }
-
-    componentDidUpdate() {
-        console.log('componentDidUpdate');
-    }
-
-    shouldComponentUpdate() {
-        console.log(' shouldComponentUpdate');
-        return true;
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.intevalId);
-        console.log('I will die');
-    }
-
-    render() {
-        console.log('render');
-        return (
-            <>
-            <h1>{this.state.count}</h1>
-            </>
-        )
-    }
+    return (
+        <>
+            <h1>{format(time, 'HH:mm:ss')}</h1>
+            <button onClick={switchRunning}>{isRunning === true ? 'Stop' : 'Start'}</button>
+            <button ref={clearBtnRef} onClick={clearHandler}>Clear</button>
+        </>
+    );
 }
 
 export default Counter;
