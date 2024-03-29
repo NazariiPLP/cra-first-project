@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useEffect, useState } from 'react';
 
 /*
 
@@ -8,44 +8,26 @@ import React, { Component } from 'react';
 
 */
 
-class DataProvider extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            data: [],
-            isLoading: true,
-            isError: false
-        }
-    }
+const useData = (loadData) => {
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
 
-    componentDidMount() {
-        this.load();
-    }
-
-    load = () => {
-        this.props.loadData()
+    useEffect(() => { // componentDidMount
+        loadData()
         .then((data) => {
-            this.setState({
-                data
-            });
+            setData(data);
         })
         .catch((error) => {
-            this.setState({
-                isError: error
-            })
+            setError(error);
         })
         .finally(() => {
-            this.setState({
-                isLoading: false
-            });
-        });
-    }
+            setIsLoading(false);
+        })
+    }, []);
 
-
-    render() {
-        return this.props.children(this.state);
-    }
+    return {data, isLoading, error};
 }
 
-export default DataProvider;
+export default useData;
+
