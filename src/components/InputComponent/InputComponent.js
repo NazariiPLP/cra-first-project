@@ -31,7 +31,6 @@ const InputComponent = () => {
             ref={inputRef}
             type='text'
             placeholder='Введіть тут щось...'
-
             />
         </>
     );
