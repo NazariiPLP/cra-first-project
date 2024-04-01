@@ -8,6 +8,12 @@ function reducer(state, action) {
                 count: state.count + 1
             };
         }
+        case 'CLICK_DECREMENT': {
+            return {
+                ...state,
+                count: state.count - 1
+            }
+        }
         case 'INPUT_CHANGE': {
             // 1. Розбираємось з атрибутом name
             // 2. Коли ми розібрались, в який саме стейт має зайти аттрибут - кладемо у відповідний стейт значення
@@ -27,21 +33,39 @@ const initialState = {
 const Clicker = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const clickHandler = () => {
+    const clickIncrementHandler = () => {
         dispatch({
             type: 'CLICK_INCREMENT'
         }); // В dispatch передається об'єкт action
     }
 
+    const clickDecrementHandler = () => {
+        dispatch({
+            type: 'CLICK_DECREMENT'
+        })
+    }
+
     return (
         <>
             <h1>{state.count}</h1>   
-            <button onClick={clickHandler}>Increment</button>
+            <button onClick={clickIncrementHandler}>Increment</button>
+            <button onClick={clickDecrementHandler}>Decrement</button>
         </>
     );
 }
 
-export default Clicker;
+/*
+
+Задача
+
+Додати декремент лічильника до функціоналу
+
+1. Пропишіть відповідний case у редьюсері
+2. Зробіть обробник події натиснення (onClick) кнопки декременту
+3. Створіть у верстці кнопку і прикрутіть до неї обробник події, який ви зробили на попередньому кроці
+
+*/
+
 
 
 // const RegistrationForm = () => {
@@ -84,7 +108,7 @@ export default Clicker;
 //     );
 // }
 
-// export default RegistrationForm;
+export default Clicker;
 
 
 /*
